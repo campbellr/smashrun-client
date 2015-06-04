@@ -15,7 +15,7 @@ requirements = [
     'requests-oauthlib'
 ]
 
-test_requirements = []
+test_requirements = ['unittest2']
 
 setup(
     name='smashrun-client',
@@ -47,6 +47,6 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
     ],
-    test_suite='tests',
+    test_suite='unittest2.collector',
     tests_require=test_requirements
 )
