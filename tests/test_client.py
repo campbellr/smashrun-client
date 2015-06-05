@@ -1,7 +1,8 @@
 import os
 import logging
+import datetime
 
-from unittest2 import TestCase, SkipTest, skip
+from unittest2 import TestCase, SkipTest
 
 from smashrun import Smashrun
 
@@ -12,6 +13,14 @@ refresh_token = os.environ.get("SMASHRUN_REFRESH_TOKEN")
 logging.basicConfig(level=logging.DEBUG)
 
 class TestSmashrun(TestCase):
+
+    """Tests for the smashrun client.
+
+    Note that these tests are *not* unit tests and actually run against the
+    live Smashrun API, so be nice and don't repeatedly run them a rediculous
+    amount.
+
+    """
 
     @classmethod
     def setUpClass(cls):
@@ -29,6 +38,22 @@ class TestSmashrun(TestCase):
         activities = list(self.client.get_activities())
         self.assertNotEqual(activities, [])  # small chance this will fail...
 
+    def test_get_activities_style(self):
+        activities = self.client.get_activities(count=2, style='ids')
+        activity = next(activities)
+        self.assertIsInstance(activity, int)
+
+    def test_get_activities_invalid_style(self):
+        with self.assertRaises(ValueError):
+            self.client.get_activities(style='foobar')
+
+    def test_get_activities_since(self):
+        one_month_ago = (datetime.datetime.now() -
+                         datetime.timedelta(days=30))
+        # TODO: it would be easier to have a test for this if each date field
+        # was converted to a datetime...
+        list(self.client.get_activities(since=one_month_ago))
+
     def test_get_activity(self):
         activities = self.client.get_activities()
         activity = next(activities)
@@ -37,3 +62,26 @@ class TestSmashrun(TestCase):
         self.assertEqual(activity['activityId'],
                          fetched_activity['activityId'])
         self.assertIn('recordingValues', fetched_activity)
+
+    def test_get_badges(self):
+        # if it doesn't raise an exception, that's good enough for me
+        self.client.get_badges()
+
+    def test_get_current_weight(self):
+        self.client.get_current_weight()
+
+    def test_get_weight_history(self):
+        self.client.get_weight_history()
+
+    def test_get_stats(self):
+        self.client.get_stats()
+
+    def test_get_stats_year(self):
+        self.client.get_stats(year=2014)
+
+    def test_get_stats_year_month(self):
+        self.client.get_stats(year=2015, month=2)
+
+    def test_get_stats_month_and_no_year(self):
+        with self.assertRaises(ValueError):
+            self.client.get_stats(month=1)
