@@ -10,7 +10,9 @@ client_id = os.environ.get("SMASHRUN_CLIENT_ID")
 client_secret = os.environ.get("SMASHRUN_CLIENT_SECRET")
 refresh_token = os.environ.get("SMASHRUN_REFRESH_TOKEN")
 
-logging.basicConfig(level=logging.DEBUG)
+if os.environ.get("DEBUG"):
+    logging.basicConfig(level=logging.DEBUG)
+
 
 class TestSmashrun(TestCase):
 
