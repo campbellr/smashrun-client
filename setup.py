@@ -3,6 +3,12 @@
 
 from setuptools import setup
 
+# workaround for python issue #15881
+try:
+    import multiprocessing
+except ImportError:
+    pass
+
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
