@@ -7,10 +7,10 @@ A Python client for the Smashrun_ API.
 Install
 =======
 
-This package isn't on PyPi yet, so the easiest way to install is directly
-from the git repository::
+You can install the current development release using ``pip``::
 
-    $ pip install git+git://github.com/campbellr/smashrun-client.git
+    pip install --pre smashrun-client
+
 
 Usage
 =====
