@@ -4,13 +4,6 @@ smashrun-client
 
 A Python client for the Smashrun_ API.
 
-Features
-========
-
-* Simplified OAuth2 authorization
-* Retrieve activities from the Smashrun API
-* Retrieve a specific activity from the Smashrun API
-
 Install
 =======
 
@@ -69,6 +62,9 @@ Use ``Smashrun.get_activity`` to get a specific activity:
     print activity['recordingKeys']
 
 
+For more details on what you can do, see `the code`_ and the `Smashrun API`_
+
+
 Contributing
 ============
 
@@ -77,3 +73,5 @@ an issue in our `issue tracker`_.
 
 .. _Smashrun: https://smashrun.com
 .. _issue tracker: https://github.com/campbellr/smashrun-client/issues
+.. _the code: https://github.com/campbellr/smashrun-client/blob/master/smashrun/client.py
+.. _Smashrun API: https://api.smashrun.com/
