@@ -25,7 +25,7 @@ test_requirements = ['unittest2']
 
 setup(
     name='smashrun-client',
-    version='0.1.1',
+    version='0.1.2',
     description="A Python client for the Smashrun API",
     long_description=readme + '\n\n' + history,
     author="Ryan Campbell",
