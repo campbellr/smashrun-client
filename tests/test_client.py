@@ -33,7 +33,8 @@ class TestSmashrun(TestCase):
 
     def setUp(self):
         self.client = Smashrun(client_id=client_id,
-                               client_secret=client_secret)
+                               client_secret=client_secret,
+                               redirect_uri='http://localhost')
         self.client.refresh_token(refresh_token=refresh_token)
 
     def test_get_activities(self):
@@ -87,3 +88,9 @@ class TestSmashrun(TestCase):
     def test_get_stats_month_and_no_year(self):
         with self.assertRaises(ValueError):
             self.client.get_stats(month=1)
+
+    def test_get_auth_url(self):
+        url = self.client.get_auth_url()[0]
+        self.assertIn('client_id', url)
+        self.assertIn('client_secret', url)
+        self.assertIn('redirect_uri', url)

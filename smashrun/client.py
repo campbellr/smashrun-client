@@ -34,7 +34,7 @@ class Smashrun(object):
         return self.session.client_id
 
     def get_auth_url(self):
-        return self.session.authorization_url(auth_url)
+        return self.session.authorization_url(auth_url, client_secret=self.client_secret)
 
     def fetch_token(self, **kwargs):
         """Fetch a new token using the supplied code.
