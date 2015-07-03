@@ -118,6 +118,11 @@ class Smashrun(object):
         url = self._build_url('my', 'body', 'weight')
         return self._json(url)
 
+    def get_userinfo(self):
+        """Return information about the current user."""
+        url = self._build_url('my', 'userinfo')
+        return self._json(url)
+
     def create_weight(self, weight, date=None):
         """Submit a new weight record.
 

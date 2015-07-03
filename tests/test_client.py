@@ -94,3 +94,7 @@ class TestSmashrun(TestCase):
         self.assertIn('client_id', url)
         self.assertIn('client_secret', url)
         self.assertIn('redirect_uri', url)
+
+    def test_get_userinfo(self):
+        r = self.client.get_userinfo()
+        self.assertIn('id', r)
