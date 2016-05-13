@@ -19,7 +19,7 @@ class TestSmashrun(TestCase):
     """Tests for the smashrun client.
 
     Note that these tests are *not* unit tests and actually run against the
-    live Smashrun API, so be nice and don't repeatedly run them a rediculous
+    live Smashrun API, so be nice and don't repeatedly run them a ridiculous
     amount.
 
     """
