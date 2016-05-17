@@ -35,8 +35,12 @@ Requesting a token
     client = Smashrun(client_id='my_client_id',
                       redirect_uri='urn:ietf:wg:oauth:2.0:auto')
     auth_url = client.get_auth_url()
-    code = input("Go to '%s' and authorize this application. Paste the provided code here:" % auth_url[0])
+    code = raw_input("Go to '%s' and authorize this application. Paste the provided code here:" % auth_url[0])
     client.fetch_token(code=code)
+
+
+**NOTE:** The example above assumes that you are running Python 2.x. If You are using Python 3.x you can replace
+``raw_input`` with ``input``.
 
 
 Fetching activities
