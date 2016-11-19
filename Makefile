@@ -2,7 +2,7 @@
 .PHONY: clean
 
 clean:
-	git clean -X
+	git clean -fdX
 
 test:
 	tox
