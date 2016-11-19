@@ -76,7 +76,9 @@ class Smashrun(object):
         """Iterate over all activities, from newest to oldest.
 
         :param count: The number of results to retrieve per page.
-        :param since: Return only activities since this date.
+        :param since: Return only activities since this date. Can be either
+                      a timestamp or a datetime object.
+
         :param style: The type of records to return. May be one of
                       'summary', 'brief', or 'ids'.
 
@@ -191,7 +193,12 @@ def to_timestamp(dt):
 
     Note that unlike a typical unix timestamp, this is seconds since 1970
     *local time*, not UTC.
+
+    If the passed in object is already a timestamp, then that value is
+    simply returned unmodified.
     """
+    if isinstance(dt, int):
+        return dt
     return int(total_seconds(dt.replace(tzinfo=None) - datetime.datetime(1970, 1, 1)))
 
 
