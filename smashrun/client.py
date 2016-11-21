@@ -1,8 +1,11 @@
 """ This module contains main user-facing Smashrun interface.
 
 """
+from __future__ import division
+
 import json
-import time
+import datetime
+
 
 from requests_oauthlib import OAuth2Session
 
@@ -73,7 +76,9 @@ class Smashrun(object):
         """Iterate over all activities, from newest to oldest.
 
         :param count: The number of results to retrieve per page.
-        :param since: Return only activities since this date.
+        :param since: Return only activities since this date. Can be either
+                      a timestamp or a datetime object.
+
         :param style: The type of records to return. May be one of
                       'summary', 'brief', or 'ids'.
 
@@ -184,8 +189,23 @@ class Smashrun(object):
 
 
 def to_timestamp(dt):
-    """Convert a datetime object to a unix timestamp (UTC)."""
-    return int(time.mktime(dt.timetuple()))
+    """Convert a datetime object to a unix timestamp.
+
+    Note that unlike a typical unix timestamp, this is seconds since 1970
+    *local time*, not UTC.
+
+    If the passed in object is already a timestamp, then that value is
+    simply returned unmodified.
+    """
+    if isinstance(dt, int):
+        return dt
+    return int(total_seconds(dt.replace(tzinfo=None) - datetime.datetime(1970, 1, 1)))
+
+
+def total_seconds(delta):
+    if hasattr(delta, 'total_seconds'):
+        return delta.total_seconds()
+    return (delta.microseconds + (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6
 
 
 def is_aware(d):
