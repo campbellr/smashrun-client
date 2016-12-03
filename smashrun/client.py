@@ -80,13 +80,11 @@ class Smashrun(object):
                       a timestamp or a datetime object.
 
         :param style: The type of records to return. May be one of
-                      'summary', 'brief', or 'ids'.
+                      'summary', 'briefs', or 'ids'.
 
         :param limit: The maximum number of activities to return for the given query.
 
         """
-        if style not in ('summary', 'brief', 'ids'):
-            raise ValueError("invalid value for 'style'")
         params = {}
         if since:
             params.update(fromDate=to_timestamp(since))

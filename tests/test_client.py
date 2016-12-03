@@ -2,6 +2,7 @@ import os
 import logging
 import datetime
 
+import requests
 from unittest2 import TestCase, SkipTest
 
 from smashrun import Smashrun
@@ -42,13 +43,14 @@ class TestSmashrun(TestCase):
         self.assertNotEqual(activities, [])  # small chance this will fail...
 
     def test_get_activities_style(self):
-        activities = self.client.get_activities(count=2, style='ids')
-        activity = next(activities)
-        self.assertIsInstance(activity, int)
+        for style in ('summary', 'briefs', 'ids'):
+            activities = self.client.get_activities(count=2, style='ids')
+            activity = next(activities)
+            self.assertIsInstance(activity, int)
 
     def test_get_activities_invalid_style(self):
-        with self.assertRaises(ValueError):
-            self.client.get_activities(style='foobar')
+        with self.assertRaises(requests.HTTPError):
+            list(self.client.get_activities(style='foobar'))
 
     def test_get_activities_limit(self):
         activities = list(self.client.get_activities(style='ids', limit=3))
