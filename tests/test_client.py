@@ -50,6 +50,10 @@ class TestSmashrun(TestCase):
         with self.assertRaises(ValueError):
             self.client.get_activities(style='foobar')
 
+    def test_get_activities_limit(self):
+        activities = list(self.client.get_activities(style='ids', limit=3))
+        self.assertEqual(len(activities), 3)
+
     def test_get_activities_since(self):
         one_month_ago = (datetime.datetime.now() -
                          datetime.timedelta(days=30))

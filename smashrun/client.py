@@ -5,7 +5,7 @@ from __future__ import division
 
 import json
 import datetime
-
+from itertools import islice
 
 from requests_oauthlib import OAuth2Session
 
@@ -72,7 +72,7 @@ class Smashrun(object):
         url = self._build_url('my', 'activities', id_num)
         return self._json(url)
 
-    def get_activities(self, count=10, since=None, style='summary'):
+    def get_activities(self, count=10, since=None, style='summary', limit=None):
         """Iterate over all activities, from newest to oldest.
 
         :param count: The number of results to retrieve per page.
@@ -81,6 +81,8 @@ class Smashrun(object):
 
         :param style: The type of records to return. May be one of
                       'summary', 'brief', or 'ids'.
+
+        :param limit: The maximum number of activities to return for the given query.
 
         """
         if style not in ('summary', 'brief', 'ids'):
@@ -94,7 +96,7 @@ class Smashrun(object):
         url = self._build_url(*parts)
         # TODO: return an Activity (or ActivitySummary?) class that can do
         # things like convert date and time fields to proper datetime objects
-        return self._iter(url, count, **params)
+        return islice(self._iter(url, count, **params), limit)
 
     def get_badges(self):
         """Return all badges the user has earned."""
