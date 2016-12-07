@@ -37,7 +37,8 @@ class Smashrun(object):
         return self.session.client_id
 
     def get_auth_url(self):
-        return self.session.authorization_url(auth_url, client_secret=self.client_secret)
+        return self.session.authorization_url(
+            auth_url, client_secret=self.client_secret)
 
     def fetch_token(self, **kwargs):
         """Fetch a new token using the supplied code.
@@ -72,7 +73,8 @@ class Smashrun(object):
         url = self._build_url('my', 'activities', id_num)
         return self._json(url)
 
-    def get_activities(self, count=10, since=None, style='summary', limit=None):
+    def get_activities(self, count=10, since=None, style='summary',
+                       limit=None):
         """Iterate over all activities, from newest to oldest.
 
         :param count: The number of results to retrieve per page.
@@ -82,7 +84,8 @@ class Smashrun(object):
         :param style: The type of records to return. May be one of
                       'summary', 'briefs', or 'ids'.
 
-        :param limit: The maximum number of activities to return for the given query.
+        :param limit: The maximum number of activities to return for the given
+                      query.
 
         """
         params = {}
@@ -199,13 +202,15 @@ def to_timestamp(dt):
     """
     if isinstance(dt, int):
         return dt
-    return int(total_seconds(dt.replace(tzinfo=None) - datetime.datetime(1970, 1, 1)))
+    return int(total_seconds(dt.replace(tzinfo=None) -
+               datetime.datetime(1970, 1, 1)))
 
 
 def total_seconds(delta):
     if hasattr(delta, 'total_seconds'):
         return delta.total_seconds()
-    return (delta.microseconds + (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6
+    return (delta.microseconds +
+            (delta.seconds + delta.days * 24 * 3600) * 10**6) / 10**6
 
 
 def is_aware(d):
