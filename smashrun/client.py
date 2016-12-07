@@ -119,7 +119,7 @@ class Smashrun(object):
         """
         parts = ['my', 'activities', id_num, 'polyline']
         if style != 'google':
-          parts.append(style)
+            parts.append(style)
         url = self._build_url(*parts)
 
         return self._json(url)
