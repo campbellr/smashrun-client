@@ -82,7 +82,7 @@ class Smashrun(object):
                       a timestamp or a datetime object.
 
         :param style: The type of records to return. May be one of
-                      'summary', 'briefs', or 'ids'.
+                      'summary', 'briefs', 'ids', or 'extended'.
 
         :param limit: The maximum number of activities to return for the given
                       query.
@@ -102,6 +102,37 @@ class Smashrun(object):
     def get_badges(self):
         """Return all badges the user has earned."""
         url = self._build_url('my', 'badges')
+        return self._json(url)
+
+    def get_notables(self, id_num):
+        """Return the notables of the activity with the given id.
+        """
+        url = self._build_url('my', 'activities', id_num, 'notables')
+        return self._json(url)
+
+    def get_polyline(self, id_num, style='google'):
+        """Return the polyline of the activity with the given id.
+
+        :param style: The type of polyline to return. May be one of
+                      'google', 'svg', or 'geojson'.
+
+        """
+        parts = ['my', 'activities', id_num, 'polyline']
+        if style != 'google':
+            parts.append(style)
+        url = self._build_url(*parts)
+
+        return self._json(url)
+
+    def get_splits(self, id_num, unit='mi'):
+        """Return the splits of the activity with the given id.
+
+        :param unit: The unit to use for splits. May be one of
+                      'mi' or 'km'.
+
+        """
+        url = self._build_url('my', 'activities', id_num, 'splits', unit)
+
         return self._json(url)
 
     def get_stats(self, year=None, month=None):
