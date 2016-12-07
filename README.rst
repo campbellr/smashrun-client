@@ -2,6 +2,10 @@
 smashrun-client
 ===============
 
+.. image:: https://travis-ci.org/campbellr/smashrun-client.svg?branch=master
+    :target: https://travis-ci.org/campbellr/smashrun-client
+
+
 A Python client for the Smashrun_ API.
 
 Install
