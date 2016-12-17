@@ -194,6 +194,18 @@ class Smashrun(object):
         r.raise_for_status()
         return r
 
+    def delete_activity(self, id_num):
+        """Delete an activity (run).
+
+        :param id_num: The activity ID to delete
+
+
+        """
+        url = self._build_url('my', 'activities', id_num)
+        r = self.session.delete(url)
+        r.raise_for_status()
+        return r
+
     def _iter(self, url, count, cls=None, **kwargs):
         page = 0
         while True:
