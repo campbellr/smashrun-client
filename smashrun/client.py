@@ -194,6 +194,33 @@ class Smashrun(object):
         r.raise_for_status()
         return r
 
+    def update_activity(self, id_num, data):
+        """Update an existing activity (run).
+
+        :param id_num: The activity ID to update
+        :param data: The data representing the activity you want to upload.
+                     May be either JSON, GPX, or TCX.
+
+        """
+        url = self._build_url('my', 'activities')
+        if isinstance(data, dict):
+            data = json.dumps(data)
+        r = self.session.put(url, data=data)
+        r.raise_for_status()
+        return r
+
+    def delete_activity(self, id_num):
+        """Delete an activity (run).
+
+        :param id_num: The activity ID to delete
+
+
+        """
+        url = self._build_url('my', 'activities', id_num)
+        r = self.session.delete(url)
+        r.raise_for_status()
+        return r
+
     def _iter(self, url, count, cls=None, **kwargs):
         page = 0
         while True:
