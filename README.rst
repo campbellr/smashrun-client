@@ -36,11 +36,12 @@ Requesting a token
 .. code-block:: python
 
     # use urn:ietf:wg:oauth:2.0:oob for applications that aren't a web app
-    client = Smashrun(client_id='my_client_id',
+    client = Smashrun(client_id='my_client_id',client_secret='my_secret',
                       redirect_uri='urn:ietf:wg:oauth:2.0:auto')
     auth_url = client.get_auth_url()
     code = raw_input("Go to '%s' and authorize this application. Paste the provided code here:" % auth_url[0])
-    client.fetch_token(code=code)
+    response = client.fetch_token(code=code)
+    print(response['refresh_token'])
 
 
 **NOTE:** The example above assumes that you are running Python 2.x. If You are using Python 3.x you can replace
