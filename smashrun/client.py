@@ -223,7 +223,7 @@ class Smashrun(object):
         return r
 
     def _iter(self, url, count, cls=None, **kwargs):
-        page = 0
+        page = None if count is None else 0
         while True:
             kwargs.update(count=count, page=page)
             r = self.session.get(url, params=kwargs)
@@ -236,6 +236,8 @@ class Smashrun(object):
                     yield cls(d)
                 else:
                     yield d
+            if page is None:
+                return
             page += 1
 
     def _build_url(self, *args, **kwargs):
