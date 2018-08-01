@@ -77,7 +77,9 @@ class Smashrun(object):
                        limit=None):
         """Iterate over all activities, from newest to oldest.
 
-        :param count: The number of results to retrieve per page.
+        :param count: The number of results to retrieve per page. If set to
+                      ``None``, pagination is disabled.
+
         :param since: Return only activities since this date. Can be either
                       a timestamp or a datetime object.
 
